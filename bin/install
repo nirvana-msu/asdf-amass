@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-source ./util.sh
+source "$(dirname "$0")/util.sh"
 
 if [[ "${ASDF_INSTALL_TYPE}" != "version" ]]; then
     echo "NYI: Installing specific ref from source is not currently implemented."
