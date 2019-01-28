@@ -7,6 +7,10 @@
 ```
 asdf plugin-add amass git@github.com:nirvana-msu/asdf-amass.git
 ```
+Before installing Amass, make sure you've got `unzip` installed, e.g. on Ubuntu:
+```bash
+sudo apt-get install unzip
+```
 
 ## Use
 
