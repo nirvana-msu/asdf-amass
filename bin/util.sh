@@ -32,5 +32,5 @@ queryReleases() {
     if [[ -n "${GITHUB_API_TOKEN}" ]]; then
         cmd="${cmd} -H 'Authorization: token ${GITHUB_API_TOKEN}'"
     fi
-    eval "${cmd}${releases_path}"
+    eval "${cmd} ${releases_path}"
 }
