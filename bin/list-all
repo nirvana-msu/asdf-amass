@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+source ./util.sh
+
+queryReleases | grep \"browser_download_url\" | grep -oP "[^_]*(?=_$(getPlatform))" | tr '\n' ' '

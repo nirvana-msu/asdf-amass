@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+source ./util.sh
+
+if [[ "${ASDF_INSTALL_TYPE}" != "version" ]]; then
+    echo "NYI: Installing specific ref from source is not currently implemented."
+    exit 1
+fi
+
+download_url=$(queryReleases | grep \"browser_download_url\" | grep -oE "[^\"]*${ASDF_INSTALL_VERSION}_$(getPlatform)[^\"]*")
+
+curl -sSL -o "${ASDF_INSTALL_PATH}/temp.zip" ${download_url}
+unzip -qq "${ASDF_INSTALL_PATH}/temp.zip" -d "${ASDF_INSTALL_PATH}"
+rm -f "${ASDF_INSTALL_PATH}/temp.zip"
+
+if [[ "$(find "${ASDF_INSTALL_PATH}" -maxdepth 1 -printf %y)" = "dd" ]]; then
+    # If there's exactly one subdirectory and no other files, flatten the subdirectory
+    subdir=$(find "${ASDF_INSTALL_PATH}" -mindepth 1 -maxdepth 1 -printf "%f\n")
+    mv "${ASDF_INSTALL_PATH}/${subdir}"/* "${ASDF_INSTALL_PATH}/${subdir}"/.[!.]* "${ASDF_INSTALL_PATH}" 2> /dev/null || :
+    rm -r "${ASDF_INSTALL_PATH}/${subdir}"
+fi
