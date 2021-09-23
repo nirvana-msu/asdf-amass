@@ -5,4 +5,4 @@ set -o pipefail
 
 source "$(dirname "$0")/util.sh"
 
-queryReleases | grep \"browser_download_url\" | grep -oP "[^_]*(?=_$(getPlatform))" | tac | tr '\n' ' '
+queryLatestReleases | grep \"browser_download_url\".*$(getPlatform) | grep -oP "(?<=/download/)[^/]*" | tac | tr '\n' ' '
